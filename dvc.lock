@@ -1,0 +1,106 @@
+schema: '2.0'
+stages:
+  data_ingetion:
+    cmd: python src/data/data_ingetion.py
+    deps:
+    - path: data/raw/spam.csv
+      hash: md5
+      md5: 008dcf9ca6aab621d3b3831db6815867
+      size: 503663
+    - path: src/data/data_ingetion.py
+      hash: md5
+      md5: af1587f996b1d0c9834eab06478606ce
+      size: 2262
+    outs:
+    - path: data/raw/test_data.csv
+      hash: md5
+      md5: 6e635acfe8d24c30c46ea18c568960eb
+      size: 98560
+    - path: data/raw/train_data.csv
+      hash: md5
+      md5: 2e9e712c23220e3d7d9c618edd4be470
+      size: 386286
+  feature_engineering:
+    cmd: python src/features/feature_engineering.py
+    deps:
+    - path: data/raw/test_data.csv
+      hash: md5
+      md5: 6e635acfe8d24c30c46ea18c568960eb
+      size: 98560
+    - path: data/raw/train_data.csv
+      hash: md5
+      md5: 2e9e712c23220e3d7d9c618edd4be470
+      size: 386286
+    - path: src/features/feature_engineering.py
+      hash: md5
+      md5: 42ad618f083d6908cad54dbe4a08a2c0
+      size: 1794
+    outs:
+    - path: data/interim/test_processed.csv
+      hash: md5
+      md5: d35a8cf0f02a5fb67bb189696127061c
+      size: 62413
+    - path: data/interim/train_processed.csv
+      hash: md5
+      md5: 8a158f1b2ff676d0a160e03d41b00d97
+      size: 246689
+  feature_extraction:
+    cmd: python src/features/feature_extraction.py
+    deps:
+    - path: data/interim/test_processed.csv
+      hash: md5
+      md5: d35a8cf0f02a5fb67bb189696127061c
+      size: 62413
+    - path: data/interim/train_processed.csv
+      hash: md5
+      md5: 8a158f1b2ff676d0a160e03d41b00d97
+      size: 246689
+    - path: src/features/feature_extraction.py
+      hash: md5
+      md5: eba15daca4f04ae061fcdd3a39c1d25d
+      size: 2229
+    outs:
+    - path: data/processed/test_tfidf.csv
+      hash: md5
+      md5: 776ac1c34cea33b8ba9ce26cf57737c6
+      size: 9048471
+    - path: data/processed/train_tfidf.csv
+      hash: md5
+      md5: 3bcc35216736096454dcba88937e488c
+      size: 36153186
+  model_training:
+    cmd: python src/models/train_model.py
+    deps:
+    - path: data/processed/train_tfidf.csv
+      hash: md5
+      md5: 3bcc35216736096454dcba88937e488c
+      size: 36153186
+    - path: src/models/train_model.py
+      hash: md5
+      md5: ea69d4b290dc59e4aa3a2735e3004656
+      size: 1127
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: ac4ba84f29a6e7eae729c45a391dbd1b
+      size: 64599
+  model_evaluation:
+    cmd: python src/models/evaluation.py
+    deps:
+    - path: data/processed/test_tfidf.csv
+      hash: md5
+      md5: 776ac1c34cea33b8ba9ce26cf57737c6
+      size: 9048471
+    - path: models/model.pkl
+      hash: md5
+      md5: ac4ba84f29a6e7eae729c45a391dbd1b
+      size: 64599
+    - path: src/models/evaluation.py
+      hash: md5
+      md5: eb89d3e4a87e082f18727b52789fef83
+      size: 1571
+    outs:
+    - path: models/metrics.json
+      hash: md5
+      md5: 69d08eb47c5f89118ef6e56969993a42
+      size: 63

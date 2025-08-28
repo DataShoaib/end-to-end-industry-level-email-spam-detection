@@ -88,4 +88,8 @@ target/
 # Mypy cache
 .mypy_cache/
 myenv/
-# c6fb4a09682be4a0c973a416838bfc74b6a735d9
+mlartifacts/
+mlruns/
+notebooks/catboost_info/
+reports/figures/confusion_matrix.png
+reports/figures/mnb_cm.png

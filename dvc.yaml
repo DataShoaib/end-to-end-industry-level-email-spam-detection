@@ -1,0 +1,42 @@
+stages:
+  data_ingetion:
+    cmd: python src/data/data_ingetion.py
+    deps:
+    - data/raw/spam.csv
+    - src/data/data_ingetion.py
+    outs:
+    - data/raw/test_data.csv
+    - data/raw/train_data.csv
+  feature_engineering:
+    cmd: python src/features/feature_engineering.py
+    deps:
+    - data/raw/test_data.csv
+    - data/raw/train_data.csv
+    - src/features/feature_engineering.py
+    outs:
+    - data/interim/test_processed.csv
+    - data/interim/train_processed.csv
+  feature_extraction:
+    cmd: python src/features/feature_extraction.py
+    deps:
+    - data/interim/train_processed.csv
+    - data/interim/test_processed.csv
+    - src/features/feature_extraction.py
+    outs:
+    - data/processed/test_tfidf.csv
+    - data/processed/train_tfidf.csv
+  model_training:
+    cmd: python src/models/train_model.py
+    deps:
+    - data/processed/train_tfidf.csv
+    - src/models/train_model.py
+    outs:
+    - models/model.pkl
+  model_evaluation:
+    cmd: python src/models/evaluation.py
+    deps:
+    - data/processed/test_tfidf.csv
+    - models/model.pkl
+    - src/models/evaluation.py
+    outs:
+    - models/metrics.json
