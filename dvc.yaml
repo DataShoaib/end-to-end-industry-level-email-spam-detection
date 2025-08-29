@@ -38,5 +38,8 @@ stages:
     - data/processed/test_tfidf.csv
     - models/model.pkl
     - src/models/evaluation.py
+    metrics:
+     - reports/metrics.json
     outs:
-    - models/metrics.json
+     - reports/exp_info.json
+

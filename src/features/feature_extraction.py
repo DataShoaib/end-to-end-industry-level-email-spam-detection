@@ -38,6 +38,8 @@ def save_df(train_tfidf:pd.DataFrame,test_tfidf:pd.DataFrame,saving_path:str)->N
     os.makedirs(raw_data_path,exist_ok=True)
     train_tfidf.to_csv(os.path.join(raw_data_path,"train_tfidf.csv"),index=False)
     test_tfidf.to_csv(os.path.join(raw_data_path,"test_tfidf.csv"),index=False)
+
+    
 def main():
     params = load_yamlfile()
     pro_train_data,pro_test_data=load_data("data/interim/train_processed.csv","data/interim/test_processed.csv")

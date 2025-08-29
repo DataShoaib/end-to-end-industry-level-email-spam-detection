@@ -1,2 +1,5 @@
+data_ingetion:
+  test_size: 0.2
+  random_state: 42
 feature_ext:
-   max_feature: 2000
+  max_feature: 2000
