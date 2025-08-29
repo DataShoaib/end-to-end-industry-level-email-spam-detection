@@ -39,7 +39,12 @@ stages:
     - models/model.pkl
     - src/models/evaluation.py
     metrics:
-     - reports/metrics.json
+    - reports/metrics.json
     outs:
-     - reports/exp_info.json
+    - reports/exp_info.json
 
+  register_model:
+    cmd: python src/models/register_model.py
+    deps:
+    - reports/exp_info.json
+    - src/models/register_model.py

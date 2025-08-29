@@ -79,7 +79,7 @@ logger.info("predicted sucessfully")
 
 def evaluation(y_pred:np.ndarray,y_test:np.ndarray)->Dict[str,float]:
     try:
-       logger.info("model evaluation start...")
+       logger.info("model evaluation star...")
        accuracy=accuracy_score(y_test,y_pred)
        precision=precision_score(y_test,y_pred)
        recall=recall_score(y_pred,y_test)
@@ -105,7 +105,7 @@ def save_metrics(metrics:Dict[str,float],path:str)->None:
             json.dump(metrics,f,indent=4)
         logger.debug("eval mertric saved at %s",path) 
     except Exception as e:
-        logger.error("somthing error accured %s",e)  
+        logger.error("something unexpected error accured %s",e)  
         raise 
 
 def save_model_info(run_id:str,model_path:str,file_path:str):
